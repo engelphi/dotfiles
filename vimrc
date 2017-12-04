@@ -37,12 +37,25 @@ let g:cpp_experimental_template_highlight = 0
 let g:airline_powerline_fonts=1
 set completeopt-=preview
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Formatter setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! FormatOnSave()
+  let l:formatdiff = 1
+  pyf /usr/share/clang/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.ipp call FormatOnSave()
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GENERAL
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set history=700
 set mouse=a
 set autoread
+set clipboard=unnamedplus
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => USER INTERFACE
@@ -51,7 +64,7 @@ set so=7
 set wildmenu
 set wildignore=*.o,*~,*.pyc
 set ruler
-set cmdheight=2
+set cmdheight=1
 set hid
 set nu
 set backspace=eol,start,indent
@@ -122,9 +135,7 @@ map <F5> :tabnew<CR>
 map <F6> :tabn<CR>
 map <F7> :tabp<CR>
 map <F8> :tabclose<CR>
-map <F9> :<C-]><CR>
-map <F10> :tn<CR>
-map <F11> :tp<CR>
-map <F12> :<C-t><CR>
+map <F9> :so $MYVIMRC<CR>
+
 imap <C-s> <ESC>:w<CR>
 vmap <C-s> <ESC>:w<CR> 
