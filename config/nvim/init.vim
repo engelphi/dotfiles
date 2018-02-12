@@ -1,9 +1,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => AUTO INSTALL VIM-PLUG PLUGIN-MANAGER IF NOT YET INSTALLED
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -20,8 +20,8 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'powerline/fonts', { 'do': './install.sh' }
 Plug 'Valloric/YouCompleteMe', { 'do':  './install.py --clang-completer --system-libclang' }
-Plug 'vim-syntastic/syntastic'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf', { 'do': './install.sh --all' }
 Plug 'junegunn/fzf.vim'
@@ -36,16 +36,24 @@ call plug#end()
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 0
 let g:airline_powerline_fonts=1
+let g:airline_theme_bg='dark'
+let g:airline_theme='solarized'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#split_buffers = 0
+let g:airline#extensions#tabline#show_buffers = 0
 set completeopt-=preview
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 1
+"let g:syntastic_cpp_checkers = ['gcc']
+"let g:syntastic_cpp_compiler = 'gcc'
+"let g:syntastic_cpp_compiler_options = '-std=c++14'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Formatter setup
@@ -62,6 +70,7 @@ autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.ipp call FormatOnSave()
 set history=700
 set mouse=a
 set autoread
+au FocusGained * :checktime
 set clipboard=unnamedplus
 
 
@@ -96,12 +105,8 @@ set matchpairs+=<:>
 syntax enable
 
 colorscheme solarized
-if strftime("%H") < 15
-  set background=light
-else
-  set background=dark
-endif
-
+set background=dark
+set guitablabel=%M\ %f
 if has("gui_running")
 	set guioptions-=T
 	set guioptions+=e
