@@ -19,15 +19,16 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
 Plug 'powerline/fonts', { 'do': './install.sh' }
-Plug 'Valloric/YouCompleteMe', { 'do':  './install.py --clang-completer --system-libclang' }
+"Plug 'Valloric/YouCompleteMe', { 'do':  './install.py --clang-completer --system-libclang' }
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf', { 'do': './install.sh --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'Shougo/neocomplete.vim'
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugin' }
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -47,13 +48,40 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 1
-"let g:syntastic_cpp_checkers = ['gcc']
-"let g:syntastic_cpp_compiler = 'gcc'
-"let g:syntastic_cpp_compiler_options = '-std=c++14'
+let g:LanguageClient_autoStart = 1  
+let g:LanguageClient_serverCommands = {}
+
+if executable('clangd')
+  let g:LanguageClient_serverCommands.cpp = ['clangd']
+endif
+
+if executable('go-langserver')
+  let g:LanguageClient_serverCommands.go = ['go-langserver', '-gocodecompletion']
+endif
+
+if executable('pyls')
+  let g:LanguageClient_serverCommands.python = ['pyls']
+endif
+
+if executable('javascript-typescript-stdio')
+  let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
+  let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
+  let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.less = ['css-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.json = ['json-languageserver', '--stdio']
+endif
+
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('smart_case', v:true)
+
+
+" Automatically start language servers.                                                                                                                            
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> gt :call LanguageClient_textDocument_typeDefinition()<CR>
+nnoremap <silent> rn :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> fm :call LanguageClient_textDocument_formatting()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Formatter setup
