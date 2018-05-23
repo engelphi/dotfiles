@@ -72,6 +72,10 @@ if executable('javascript-typescript-stdio')
   let g:LanguageClient_serverCommands.json = ['json-languageserver', '--stdio']
 endif
 
+if executable('java-lang-server')
+  let g:LanguageClient_serverCommands.java = ['java-lang-server', '-Dlog.level=ALL']
+endif
+
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
 
@@ -82,6 +86,7 @@ nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> gt :call LanguageClient_textDocument_typeDefinition()<CR>
 nnoremap <silent> rn :call LanguageClient_textDocument_rename()<CR>
 nnoremap <silent> fm :call LanguageClient_textDocument_formatting()<CR>
+nnoremap <silent> rf :call LanguageClient_textDocument_references()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Formatter setup
