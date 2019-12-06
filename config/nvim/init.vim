@@ -156,7 +156,7 @@ set wildignore=*.o,*~,*.pyc
 set ruler
 set cmdheight=1
 set hid
-set nu
+set nu rnu
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set ignorecase
