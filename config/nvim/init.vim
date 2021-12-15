@@ -14,8 +14,7 @@ endif
 " completer before starting
 call plug#begin('~/.vim/plugged')
 Plug 'terryma/vim-multiple-cursors'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
@@ -23,119 +22,120 @@ Plug 'powerline/fonts', { 'do': './install.sh' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install.sh --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh', }
-Plug 'Shougo/echodoc.vim'
-Plug 'dense-analysis/ale'
-"Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'Shougo/neocomplete.vim'
 Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'roxma/nvim-yarp'
-Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Shougo/echodoc.vim'
+Plug 'peterhoeg/vim-qml'
+Plug 'dense-analysis/ale'
 Plug 'arcticicestudio/nord-vim'
 call plug#end()
-
-"call deoplete#custom#option('omni_patterns', {
-"\ 'go': '[^. *\t]\.\w*',
-"\})
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => PLUGIN CONFIG
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ROBOT_SYNTAX
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:robot_syntax_for_txt=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Improve C++ highlighting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 0
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => AIRLINE CONFIG 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_powerline_fonts=1
-"let g:airline_theme_bg='dark'
 let g:airline_theme='nord'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#split_buffers = 0
 let g:airline#extensions#tabline#show_buffers = 0
-"set completeopt-=preview
-set completeopt=noinsert,menuone,noselect
+let g:airline#extensions#ale#enabled = 1
 
+set completeopt=noinsert,menuone,noselect
 set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-""VIM-GO
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-let g:go_term_mode = "split"
-let g:go_term_height = 10
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-let g:go_fmt_command = "goimports"
-au FileType go nmap <F4> :GoTest -short<CR>
-au FileType go nmap <F5> :GoCoverageToggle -short -tags="all integration"<CR>
+"let g:deoplete#enable_at_startup = 1
+let g:float_preview#docked = 1
 
-""LANGUAGE CLIENT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => LANGUAGE CLIENT
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:LanguageClient_autoStart = 1  
 let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_useVirtualText = 0
-if executable('clangd')
-	let g:LanguageClient_serverCommands.cpp = ['clangd', '--background-index', '--completion-style=detailed', '-j=4']
+if executable('/usr/local/Cellar/llvm/13.0.0_1/bin/clangd')
+  let g:LanguageClient_serverCommands.cpp = ['/usr/local/Cellar/llvm/13.0.0_1/bin/clangd', '--header-insertion=never', '--suggest-missing-includes','-all-scopes-completion', '-completion-style=detailed', '-function-arg-placeholders', '-j=2', '-log=verbose', '-background-index',  '-cross-file-rename']
 endif
-
-"if executable('go-langserver')
-  "let g:LanguageClient_serverCommands.go = ['go-langserver', '-gocodecompletion']
-"endif
-
-"" Run gofmt on save
-autocmd BufWritePre *.h,*.hpp,*.c,*.cpp,*.ipp,*.go :call LanguageClient#textDocument_formatting_sync()
-
 
 if executable('pyls')
-	let g:LanguageClient_serverCommands.python = ['pyls']
-endif
-
-if executable('javascript-typescript-stdio')
-	let g:LanguageClient_serverCommands.javascript = ['javascript-typescript-stdio']
-	let g:LanguageClient_serverCommands.typescript = ['javascript-typescript-stdio']
-	let g:LanguageClient_serverCommands.html = ['html-languageserver', '--stdio']
-	let g:LanguageClient_serverCommands.css = ['css-languageserver', '--stdio']
-	let g:LanguageClient_serverCommands.less = ['css-languageserver', '--stdio']
-	let g:LanguageClient_serverCommands.json = ['json-languageserver', '--stdio']
+  let g:LanguageClient_serverCommands.python = ['pyls']
 endif
 
 if executable('java-lang-server')
-	let g:LanguageClient_serverCommands.java = ['java-lang-server', '-Dlog.level=ALL']
+  let g:LanguageClient_serverCommands.java = ['java-lang-server', '-Dlog.level=ALL']
 endif
 
+function SetLSPShortcuts()
+  nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient_textDocument_definition({'gotoCmd': 'split'})<CR>
+  nnoremap <silent> gt :call LanguageClient_textDocument_typeDefinition()<CR>
+  nnoremap <silent> rn :call LanguageClient_textDocument_rename()<CR>
+  nnoremap <silent> fm :call LanguageClient_textDocument_formatting()<CR>
+  nnoremap <silent> rf :call LanguageClient_textDocument_references()<CR>
+  nnoremap <silent> db :call LanguageClient#debugInfo()<CR>
+endfunction()
+
+augroup LSP
+  let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
+  autocmd!
+  autocmd FileType cpp,c,javascript,python,go call SetLSPShortcuts()
+augroup END
+
+autocmd BufWritePre *.py,*.go :call LanguageClient#textDocument_formatting_sync()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NCM2
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
-"let g:deoplete#enable_at_startup = 1
-"call deoplete#custom#option('smart_case', v:true)
-
- "Automatically start language servers.                                                                                                                            
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> gt :call LanguageClient_textDocument_typeDefinition()<CR>
-nnoremap <silent> rn :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> fm :call LanguageClient_textDocument_formatting()<CR>
-nnoremap <silent> rf :call LanguageClient_textDocument_references()<CR>
-
-" echodoc setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ECHODOC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set cmdheight=2
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
-
 set signcolumn=yes
 
-let g:ale_linters = {
-\	'cpp': ['clangtidy','clangd','cppcheck']
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ALE
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_linter_aliases = {
+\    'bats': 'sh',
+\    'conf': 'sh',
 \}
+
+let g:ale_linters = {
+\   'cpp': ['clangd', 'clang-tidy'],
+\}
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Formatter setup
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:clang_format_path = '/usr/local/Cellar/llvm@9/9.0.1_2/bin/clang-format'
+function! FormatOnSave()
+  let l:formatdiff = 1
+  py3f /usr/local/Cellar/llvm@9/9.0.1_2/share/clang/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.cpp,*.cc,*.hpp,*.c,*.ipp call FormatOnSave()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GENERAL
@@ -146,7 +146,6 @@ set autoread
 au FocusGained * :checktime
 set clipboard=unnamedplus
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => USER INTERFACE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -154,7 +153,6 @@ set so=7
 set wildmenu
 set wildignore=*.o,*~,*.pyc
 set ruler
-set cmdheight=1
 set hid
 set nu rnu
 set backspace=eol,start,indent
@@ -178,7 +176,7 @@ set matchpairs+=<:>
 syntax enable
 
 colorscheme nord
-"set background=dark
+set background=dark
 set guitablabel=%M\ %f
 if has("gui_running")
 	set guioptions-=T
@@ -204,7 +202,7 @@ set noswapfile
 set smarttab
 set shiftwidth=2
 set tabstop=2
-"set expandtab
+set expandtab
 set tw=500
 set ai
 set si
@@ -214,22 +212,6 @@ set cc=100
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => KEY MAPPINGS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <F2> :NERDTreeToggle<CR>
-map <F3> :call NERDComment(1, 'toggle')<CR>
-"map <F1> :set spell! spelllang=en<CR>
-"map <F4> :set spell! spelllang=de_20<CR>
-"map <F5> :tabnew<CR>
-"map <F6> :tabn<CR>
-"map <F7> :tabp<CR>
-"map <F8> :tabclose<CR>
+map <F1> :NERDTreeToggle<CR>
+map <F2> :call NERDComment(1, 'toggle')<CR>
 map <F9> :so $MYVIMRC<CR>
-
-imap <C-s> <ESC>:w<CR>
-vmap <C-s> <ESC>:w<CR>
-
-"inoremap " ""<left>
-"inoremap ' ''<left>
-"inoremap ( ()<left>
-"inoremap [ []<left>
-"inoremap { {}<left>
-
