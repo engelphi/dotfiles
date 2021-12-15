@@ -1,3 +1,3 @@
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
-map <F1> :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<CR>

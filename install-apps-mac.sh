@@ -5,8 +5,9 @@ install_brew() {
 }
 
 install_mac() {
-  install_brew
-  sudo chown -R "$(whoami)" /usr/local/bin /usr/local/etc /usr/local/sbin
-  chmod u+w /usr/local/bin /usr/local/etc /usr/local/sbin
-  sudo brew install neovim tmux the_silver_searcher python pynvim llvm
+    install_brew
+    sudo chown -R "$(whoami)" /usr/local/bin /usr/local/etc /usr/local/sbin
+    chmod u+w /usr/local/bin /usr/local/etc /usr/local/sbin
+    sudo brew install neovim tmux the_silver_searcher python pynvim llvm
+    nvim +PlugUpdate +PlugClean! +qa
 }

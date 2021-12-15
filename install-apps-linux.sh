@@ -7,6 +7,7 @@ setup_xfce_terminal() {
 }
 
 install_linux() {
-  setup_xfce_terminal
-  sudo pacman -Sy neovim tmux the_silver_searcher python python-pynvim
+    setup_xfce_terminal
+    sudo pacman -Syy --noconfirm neovim tmux the_silver_searcher python python-pynvim
+    nvim +PlugUpdate +PlugClean! +qa
 }
