@@ -10,13 +10,13 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => PLUGIN LIST
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" install the silver-searcher for fzf 
+" install the silver-searcher for fzf
 call plug#begin(data_dir . '/plugins')
 source ~/.config/nvim/plugins/vim-multiple-cursors.vim
 source ~/.config/nvim/plugins/vim-fugitive.vim
 source ~/.config/nvim/plugins/nerdcommenter.vim
 source ~/.config/nvim/plugins/nerdtree.vim
-source ~/.config/nvim/plugins/vim-cpp-enhanced-highlight.vim
+source ~/.config/nvim/plugins/polyglot.vim
 source ~/.config/nvim/plugins/airline.vim
 source ~/.config/nvim/plugins/fzf.vim
 source ~/.config/nvim/plugins/colorschemes.vim
@@ -43,6 +43,7 @@ set mouse=a
 set autoread
 au FocusGained * :checktime
 set clipboard=unnamedplus
+set nocompatible
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => USER INTERFACE
