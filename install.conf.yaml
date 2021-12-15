@@ -1,14 +1,20 @@
+- defaults:
+  link:
+    relink: true
+
 - link:
-  ~/.config/nvim: 
+  ~/.config/nvim:
     create: true
     path: config/nvim
-  ~/.config/powerline: 
+  ~/.config/powerline:
     create: true
     path: config/powerline
   ~/.tmux.conf: tmux.conf
   ~/.tmux: tmux
+  ~/.vimrc: vimrc
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - [sudo ./install-apps.sh]
   - [~/.tmux/plugins/tpm/scripts/install_plugins.sh > /dev/null 2>&1, Installing tmux plugins]
   - ["nvim +PlugUpdate +PlugClean! +qa", Installing and updating nvim plugins]
