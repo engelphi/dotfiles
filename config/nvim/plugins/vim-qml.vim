@@ -1,0 +1,1 @@
+Plug 'peterhoeg/vim-qml'
