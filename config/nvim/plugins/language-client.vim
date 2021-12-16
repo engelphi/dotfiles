@@ -8,10 +8,11 @@ Plug 'Shougo/echodoc.vim'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => LANGUAGE CLIENT
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:LanguageClient_autoStart = 1  
+set hidden
+let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {}
-if executable('/usr/local/Cellar/llvm/13.0.0_1/bin/clangd')
-  let g:LanguageClient_serverCommands.cpp = ['/usr/local/Cellar/llvm/13.0.0_1/bin/clangd', '--header-insertion=never', '--suggest-missing-includes','-all-scopes-completion', '-completion-style=detailed', '-function-arg-placeholders', '-j=2', '-log=verbose', '-background-index',  '-cross-file-rename']
+if executable('clangd')
+  let g:LanguageClient_serverCommands.cpp = ['clangd', '--header-insertion=never', '--suggest-missing-includes','-all-scopes-completion', '-completion-style=detailed', '-function-arg-placeholders', '-j=2', '-log=verbose', '-background-index',  '-cross-file-rename']
 endif
 
 if executable('pyls')
@@ -23,13 +24,14 @@ if executable('java-lang-server')
 endif
 
 function SetLSPShortcuts()
-  nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-  nnoremap <silent> gd :call LanguageClient_textDocument_definition({'gotoCmd': 'split'})<CR>
-  nnoremap <silent> gt :call LanguageClient_textDocument_typeDefinition()<CR>
-  nnoremap <silent> rn :call LanguageClient_textDocument_rename()<CR>
-  nnoremap <silent> fm :call LanguageClient_textDocument_formatting()<CR>
-  nnoremap <silent> rf :call LanguageClient_textDocument_references()<CR>
+  nmap <silent> K <Plug>(lcn-hover)
+  nmap <silent> gd <Plug>(lcn-definition)
+  nmap <silent> gt <Plug>(lcn-type-definition)
+  nmap <silent> rn <Plug>(lcn-rename)
+  nmap <silent> fm <Plug>(lcn-format)
+  nmap <silent> rf <Plug>(lcn-references)
   nnoremap <silent> db :call LanguageClient#debugInfo()<CR>
+  nmap <F5> <Plug>(lcn-menu)
 endfunction()
 
 augroup LSP
