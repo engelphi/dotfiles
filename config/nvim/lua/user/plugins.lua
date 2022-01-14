@@ -44,11 +44,11 @@ return packer.startup(function(use)
     use 'nvim-lua/plenary.nvim'
     use 'kyazdani42/nvim-web-devicons'
     use "lewis6991/impatient.nvim"
-    if vim.loop.os_uname().sysname == 'Windows_NT' then
-        use { 'powerline/fonts', run = './install.ps1 Meslo' }
-    else
-        use { 'powerline/fonts', run = './install.sh Meslo' }
-    end
+    --if vim.loop.os_uname().sysname == 'Windows_NT' then
+        --use { 'ryanoasis/nerd-fonts', run = './install.ps1 Meslo' }
+    --else
+        --use { 'ryanoasis/nerd-fonts', run = './install.sh Meslo' }
+    --end
 
     -- colorscheme
     use 'shaunsingh/nord.nvim'
