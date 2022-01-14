@@ -88,6 +88,9 @@ return packer.startup(function(use)
 
     -- telescope
     use 'nvim-telescope/telescope.nvim'
+    if not (vim.loop.os_uname().sysname == "Windows_NT") then
+        use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    end
 
     -- treesitter
     use {
