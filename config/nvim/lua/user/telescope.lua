@@ -104,8 +104,3 @@ telescope.setup {
 if not (vim.loop.os_uname().sysname == "Windows_NT") then
     telescope.load_extension('fzf')
 end
-
-local keymap = vim.api.nvim_set_keymap
-
-keymap('', '<C-p>', ':Telescope find_files<CR>', {})
-keymap('', '<C-g>', ':Telescope live_grep<CR>', {})

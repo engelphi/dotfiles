@@ -47,7 +47,7 @@ nvim_tree.setup {
   hijack_cursor = false,
   update_cwd = true,
   update_to_buf_dir = {
-    enable = true,
+    enable = false,
     auto_open = true,
   },
   diagnostics = {
@@ -69,12 +69,12 @@ nvim_tree.setup {
     args = {},
   },
   filters = {
-    dotfiles = false,
+    dotfiles = true,
     custom = {},
   },
   git = {
     enable = true,
-    ignore = true,
+    ignore = false,
     timeout = 500,
   },
   view = {

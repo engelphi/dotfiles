@@ -31,6 +31,21 @@ lsp_installer.on_server_ready(function(server)
          opts = vim.tbl_deep_extend("force", cmake_opts, opts)
      end
 
+     if server.name == "jedi_language_server" then
+         local jls_opts = require("user.lsp.settings.jls")
+         opts = vim.tbl_deep_extend("force", jls_opts, opts)
+     end
+
+     if server.name == "rust_analyzer" then
+         local ra_opts = require("user.lsp.settings.rust_analyzer")
+         opts = vim.tbl_deep_extend("force", ra_opts, opts)
+     end
+
+     if server.name == "gopls" then
+         local go_opts = require("user.lsp.settings.gopls")
+         opts = vim.tbl_deep_extend("force", go_opts, opts)
+     end
+
 	-- This setup() function is exactly the same as lspconfig's setup function.
 	-- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 	server:setup(opts)

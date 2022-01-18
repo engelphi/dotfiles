@@ -60,6 +60,32 @@ local function lsp_highlight_document(client)
   end
 end
 
+if vim.loop.os_uname().sysname == 'Darwin' then
+    vim.api.nvim_exec(
+    [[
+    function! FormatOnSave()
+      let l:formatdiff = 1
+      py3f /usr/local/Cellar/llvm@9/9.0.1_2/share/clang/clang-format.py
+    endfunction
+    autocmd BufWritePre *.h,*.cpp,*.cc,*.hpp,*.c,*.ipp call FormatOnSave()
+    ]],
+    false
+    )
+    vim.api.nvim_exec(
+        [[
+            autocmd BufWritePre *.py,*.rs,*.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+        ]],
+        false
+    )
+else
+    vim.api.nvim_exe(
+        [[
+            autocmd BufWritePre *.h,*.cpp,*.cc,*.hpp,*.c,*.ipp,*.py,*.rs,*.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+        ]],
+        false
+    )
+end
+
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -71,7 +97,9 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<F5>", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<F6>", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>p", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>n", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
   vim.api.nvim_buf_set_keymap(
     bufnr,
     "n",
@@ -79,8 +107,6 @@ local function lsp_keymaps(bufnr)
     '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
     opts
   )
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
