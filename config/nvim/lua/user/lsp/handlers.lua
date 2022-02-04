@@ -78,7 +78,7 @@ if vim.loop.os_uname().sysname == 'Darwin' then
         false
     )
 else
-    vim.api.nvim_exe(
+    vim.api.nvim_exec(
         [[
             autocmd BufWritePre *.h,*.cpp,*.cc,*.hpp,*.c,*.ipp,*.py,*.rs,*.go lua vim.lsp.buf.formatting_sync(nil, 1000)
         ]],
