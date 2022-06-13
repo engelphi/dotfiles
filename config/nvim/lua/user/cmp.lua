@@ -15,6 +15,8 @@ local check_backspace = function()
     return col == 0 or vim.fn.getline("."):sub(col,col):match "%s"
 end
 
+local WIDE_HEIGHT = 40
+
 --   פּ ﯟ   some other good icons
 local kind_icons = {
   Text = "",
@@ -43,7 +45,6 @@ local kind_icons = {
   Operator = "",
   TypeParameter = "",
 }
-
 
 cmp.setup {
   snippet = {
@@ -99,7 +100,7 @@ cmp.setup {
     format = function(entry, vim_item)
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-      -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+       --vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         luasnip = "[Snippet]",
@@ -119,8 +120,15 @@ cmp.setup {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  window = {
+      documentation = cmp.config.window.bordered(),
+      --documentation = {
+        --max_height = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
+        --max_width = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
+        --border = { '', '', '', ' ', '', '', '', ' ' },
+        --winhighlight = 'FloatBorder:NormalFloat',
+      --},
+      completion = cmp.config.window.bordered(),
   },
   experimental = {
     ghost_text = false,

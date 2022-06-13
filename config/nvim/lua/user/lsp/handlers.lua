@@ -59,28 +59,10 @@ local function lsp_highlight_document(client)
     )
   end
 end
-
-if vim.loop.os_uname().sysname == 'Darwin' then
-    vim.api.nvim_exec(
-    [[
-    function! FormatOnSave()
-      let l:formatdiff = 1
-      py3f /usr/local/Cellar/llvm@9/9.0.1_2/share/clang/clang-format.py
-    endfunction
-    autocmd BufWritePre *.h,*.cpp,*.cc,*.hpp,*.c,*.ipp call FormatOnSave()
-    ]],
-    false
-    )
+local function lsp_format_on_save()
     vim.api.nvim_exec(
         [[
-            autocmd BufWritePre *.py,*.rs,*.go lua vim.lsp.buf.formatting_sync(nil, 1000)
-        ]],
-        false
-    )
-else
-    vim.api.nvim_exe(
-        [[
-            autocmd BufWritePre *.h,*.cpp,*.cc,*.hpp,*.c,*.ipp,*.py,*.rs,*.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+            autocmd BufWritePre *.h,*.cpp,*.cc,*.hpp,*.c,*.m,*.mm,*.ipp,*.py,*.rs,*.go,*.lua lua vim.lsp.buf.formatting_sync(nil, 1000)
         ]],
         false
     )
@@ -116,6 +98,7 @@ M.on_attach = function(client, bufnr)
   end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
+  lsp_format_on_save()
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

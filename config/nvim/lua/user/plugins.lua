@@ -64,12 +64,12 @@ return packer.startup(function(use)
     use 'kyazdani42/nvim-tree.lua'
     use 'nvim-lualine/lualine.nvim'
     use 'lewis6991/gitsigns.nvim'
-    use "akinsho/bufferline.nvim"
+    use {"akinsho/bufferline.nvim", branch="main"}
     use "moll/vim-bbye"
     use "lukas-reineke/indent-blankline.nvim"
 
     -- cmp
-    use "hrsh7th/nvim-cmp"
+    use {"hrsh7th/nvim-cmp", branch="main"}
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "hrsh7th/cmp-cmdline"
