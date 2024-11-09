@@ -1,11 +1,12 @@
 // Config //
 configuration {
-    modi:                        "drun,filebrowser,window,run";
+    modi:                        "drun,filebrowser,window,run,power-menu:~/.local/bin/rofi-power-menu";
     show-icons:                  true;
     display-drun:                " ";
     display-run:                 " ";
     display-filebrowser:         " ";
     display-window:              " ";
+    display-power-menu:          "⏻ ";
     drun-display-format:         "{name}";
     window-format:               "{w}{t}";
     font:                        "JetBrainsMono Nerd Font 10";
