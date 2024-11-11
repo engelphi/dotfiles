@@ -9,17 +9,17 @@
 
 window#waybar {
     background: transparent;
-    background-color: @crust;
+    background-color: rgba(0,0,0,0.0);
     color: @overlay0;
     transition-property: background-color;
     transition-duration: 0.1s;
-    border-bottom: 1px solid @overlay1;
+    border-bottom: 0px solid @overlay1;
 }
 
 #window {
-    margin: 6px;
-    padding-left: 8;
-    padding-right: 8;
+    margin: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 button {
@@ -33,21 +33,46 @@ button:hover {
     color: @mauve;
     border-top: 2px solid @mauve;
 }
+/* ----------------------------------------------------------------------------
+ * Workspace
+ * ---------------------------------------------------------------------------- */ 
+#workspaces {
+    /*margin: 5px 1px 6px 1px;*/
+    margin: 6px 15px 6px 0px;
+    padding: 0px 0px;
+    border-radius: 15px;
+    border: 3px;
+    font-weight: bold;
+    font-style: normal;
+    color: @rosewater;
+}
 
 #workspaces button {
-    padding: 0 4px;
+    padding: 0px 5px 0px 5px;
+    margin: 4px 3px;
+    border-radius: 15px;
+    border: 0px;
+    color: @rosewater;
+    transition: all 0.3s ease-in-out;
 }
 
 #workspaces button.focused {
     background-color: rgba(0, 0, 0, 0.3);
     color: @rosewater;
-    border-top: 2px solid @rosewater;
+    /*border-top: 2px solid @rosewater;*/
+    border-radius: 15px;
+    min-width: 40px;
+    transition: all 0.3s ease-in-out
 }
 
 #workspaces button.active {
-    background-color: rgba(0, 0, 0, 0.3);
+    /*background-color: rgba(0, 0, 0, 0.3);*/
+    background-color: @crust;
     color: @mauve;
-    border-top: 2px solid @mauve;
+    /*border-top: 2px solid @mauve;*/
+    border-radius: 15px;
+    min-width: 40px;
+    transition: all 0.3s ease-in-out;
 }
 
 #workspaces button.urgent {
@@ -76,8 +101,11 @@ button:hover {
 }
 
 #clock {
-    color: @maroon;
-    border-bottom: 2px solid @maroon;
+    color: @mauve;
+    background-color: @crust;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 15px 10px 0px;
 }
 
 #clock.date {
@@ -86,13 +114,19 @@ button:hover {
 }
 
 #pulseaudio {
-    color: @blue;
-    border-bottom: 2px solid @blue;
+    color: @mauve;
+    background-color: @crust;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 15px 10px 0px;
 }
 
 #network {
-    color: @yellow;
-    border-bottom: 2px solid @yellow;
+    color: @mauve;
+    background-color: @crust;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 15px 10px 0px;
 }
 
 #idle_inhibitor {
@@ -105,8 +139,11 @@ button:hover {
 }
 
 #battery {
-    color: @green;
-    border-bottom: 2px solid @green;
+    color: @mauve;
+    background-color: @crust;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 15px 10px 0px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -124,4 +161,47 @@ button:hover {
     border-radius: 15px;
     padding-left: 6px;
     padding-right: 6px;
+}
+
+#taskbar {
+    background: @crust;
+    margin: 6px 15px 6px 0px;
+    padding:0px;
+    border-radius: 15px;
+    font-weight: normal;
+    font-style: normal;
+    border: 3px solid @mauve;
+}
+
+#taskbar button {
+    margin:0;
+    border-radius: 15px;
+    padding: 0px 5px 0px 5px;
+}
+
+/* -----------------------------------------------------
+ * Custom Updates
+ * ----------------------------------------------------- */
+
+#custom-updates {
+    background-color: @crust;
+    font-size: 16px;
+    color: @mauve;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 15px 10px 0px;
+}
+
+#custom-updates.green {
+    background-color: @crust;
+}
+
+#custom-updates.yellow {
+    background-color: #ff9a3c;
+    color: #FFFFFF;
+}
+
+#custom-updates.red {
+    background-color: #dc2f2f;
+    color: #FFFFFF;
 }
