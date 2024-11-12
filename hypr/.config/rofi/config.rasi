@@ -9,7 +9,7 @@ configuration {
     display-power-menu:          "⏻ ";
     drun-display-format:         "{name}";
     window-format:               "{w}{t}";
-    font:                        "JetBrainsMono Nerd Font 10";
+    font:                        "CaskaydiaCode Nerd Font Mono 10";
     icon-theme:                  "Qogir";
 }
 

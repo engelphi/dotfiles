@@ -62,7 +62,7 @@
         "separate-outputs": true
     },
     "custom/updates": {
-        "format": " {}",
+        "format": "   {}",
         "tooltip-format": "{}",
         "escape": true,
         "return-type": "json",       
