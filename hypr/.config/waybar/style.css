@@ -9,17 +9,20 @@
 
 window#waybar {
     background: transparent;
-    background-color: rgba(0,0,0,0.0);
+    background-color: rgba(0,0,0,0.2);
     color: @overlay0;
     transition-property: background-color;
     transition-duration: 0.1s;
-    border-bottom: 0px solid @overlay1;
+    border-bottom: 1px solid @overlay1;
+    padding-top: 0px;
 }
 
 #window {
-    margin: 3px;
+    margin: 0px;
+    padding-top: 0px;
     padding-left: 8px;
     padding-right: 8px;
+    padding-bottom: 0px;
 }
 
 button {
@@ -38,10 +41,10 @@ button:hover {
  * ---------------------------------------------------------------------------- */ 
 #workspaces {
     /*margin: 5px 1px 6px 1px;*/
-    margin: 6px 15px 6px 0px;
-    padding: 0px 0px;
+    margin: 3px 15px 3px 0px;
+    padding: 0px 10px 0px 10px;
     border-radius: 15px;
-    border: 3px;
+    /*border: 3px;*/
     font-weight: bold;
     font-style: normal;
     color: @rosewater;
@@ -91,6 +94,7 @@ button:hover {
 #tray,
 #network,
 #mode,
+#taskbar
 #scratchpad {
   margin-top: 2px;
   margin-bottom: 2px;
@@ -105,7 +109,7 @@ button:hover {
     background-color: @crust;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
+    margin: 3px 15px 3px 0px;
 }
 
 #clock.date {
@@ -118,7 +122,7 @@ button:hover {
     background-color: @crust;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
+    margin: 3px 15px 3px 0px;
 }
 
 #network {
@@ -126,7 +130,7 @@ button:hover {
     background-color: @crust;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
+    margin: 3px 15px 3px 0px;
 }
 
 #idle_inhibitor {
@@ -143,7 +147,7 @@ button:hover {
     background-color: @crust;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
+    margin: 3px 15px 3px 0px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -165,16 +169,16 @@ button:hover {
 
 #taskbar {
     background: @crust;
-    margin: 6px 15px 6px 0px;
-    padding:0px;
+    margin: 3px 15px 3px 10px;
+    padding: 0px 10px 0px 10px;
     border-radius: 15px;
     font-weight: normal;
     font-style: normal;
-    border: 3px solid @mauve;
+    border: 0px solid @mauve;
 }
 
 #taskbar button {
-    margin:0;
+    margin: 0px;
     border-radius: 15px;
     padding: 0px 5px 0px 5px;
 }
@@ -189,7 +193,7 @@ button:hover {
     color: @mauve;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
+    margin: 3px 15px 3px 0px;
 }
 
 #custom-updates.green {
