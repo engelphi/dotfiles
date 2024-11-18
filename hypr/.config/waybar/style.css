@@ -106,7 +106,7 @@ button:hover {
 
 #clock {
     color: @mauve;
-    background-color: @crust;
+    background-color: transparent;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
     margin: 3px 15px 3px 0px;
@@ -119,7 +119,7 @@ button:hover {
 
 #pulseaudio {
     color: @mauve;
-    background-color: @crust;
+    background-color: transparent;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
     margin: 3px 15px 3px 0px;
@@ -127,7 +127,7 @@ button:hover {
 
 #network {
     color: @mauve;
-    background-color: @crust;
+    background-color: transparent;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
     margin: 3px 15px 3px 0px;
@@ -144,11 +144,18 @@ button:hover {
 
 #battery {
     color: @mauve;
-    background-color: @crust;
+    background-color: transparent;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
     margin: 3px 15px 3px 0px;
 }
+
+.modules-right {
+    margin: 3px 15px 3px 0px;
+    background-color: @crust;
+    border-radius: 15px;
+}
+
 
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left>widget:first-child>#workspaces {
@@ -191,7 +198,7 @@ button:hover {
  * ----------------------------------------------------- */
 
 #custom-updates {
-    background-color: @crust;
+    background-color: transparent;
     font-size: 13px;
     color: @mauve;
     border-radius: 15px;
