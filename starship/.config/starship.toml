@@ -10,6 +10,7 @@ $git_status\
 [](fg:#cba6f7 bg:#f5e0dc)\
 $rust\
 $python\
+$conda\
 [ ](fg:#f5e0dc)\
 """
 
