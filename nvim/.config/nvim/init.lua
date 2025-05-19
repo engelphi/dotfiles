@@ -481,6 +481,10 @@ require("lazy").setup({
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
+					local vmap = function(keys, func, desc)
+						vim.keymap.set("v", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+					end
+
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.
@@ -517,6 +521,7 @@ require("lazy").setup({
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
 					map("<leader>la", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					vmap("<leader>la", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 					-- Opens a popup that displays documentation about the word under your cursor
 					--  See `:help K` for why this keymap.
@@ -789,6 +794,7 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
+					{ name = "crates" },
 				},
 			})
 		end,
@@ -950,7 +956,19 @@ require("lazy").setup({
 		event = { "BufRead Cargo.toml" },
 		tag = "stable",
 		config = function()
-			require("crates").setup()
+			require("crates").setup({
+				lsp = {
+					enabled = true,
+					actions = true,
+					completion = true,
+					hover = true,
+				},
+				completion = {
+					cmp = {
+						enabled = true,
+					},
+				},
+			})
 		end,
 	},
 	{
